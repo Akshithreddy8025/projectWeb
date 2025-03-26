@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiction Books | Bookworms</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Bookworms</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="fiction.html" class="active">Fiction</a></li>
+                    <li><a href="nonfiction.html">Non-Fiction</a></li>
+                    <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="category-header">
+            <div class="container">
+                <h2>Fiction Books</h2>
+                <p>Explore our collection of novels, short stories, and literary works</p>
+            </div>
+        </section>
+
+        <section class="book-list">
+            <div class="container">
+                <div class="filter-options">
+                    <select id="sort-by">
+                        <option value="popular">Sort by: Popularity</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="title">Title: A-Z</option>
+                    </select>
+                </div>
+                
+                <div class="book-grid">
+                    <div class="book-card">
+                        <img src="images/book1.jpg" alt="The Midnight Library">
+                        <h3>The Midnight Library</h3>
+                        <p class="author">Matt Haig</p>
+                        <p class="price">$12.99</p>
+                        <a href="product.html" class="btn">View Details</a>
+                    </div>
+                    <div class="book-card">
+                        <img src="images/book3.jpg" alt="Where the Crawdads Sing">
+                        <h3>Where the Crawdads Sing</h3>
+                        <p class="author">Delia Owens</p>
+                        <p class="price">$10.99</p>
+                        <a href="product.html" class="btn">View Details</a>
+                    </div>
+                    <div class="book-card">
+                        <img src="images/book4.jpg" alt="The Silent Patient">
+                        <h3>The Silent Patient</h3>
+                        <p class="author">Alex Michaelides</p>
+                        <p class="price">$13.49</p>
+                        <a href="product.html" class="btn">View Details</a>
+                    </div>
+                    <div class="book-card">
+                        <img src="images/book5.jpg" alt="Educated">
+                        <h3>Educated</h3>
+                        <p class="author">Tara Westover</p>
+                        <p class="price">$14.29</p>
+                        <a href="product.html" class="btn">View Details</a>
+                    </div>
+                    <div class="book-card">
+                        <img src="images/book6.jpg" alt="The Vanishing Half">
+                        <h3>The Vanishing Half</h3>
+                        <p class="author">Brit Bennett</p>
+                        <p class="price">$11.79</p>
+                        <a href="product.html" class="btn">View Details</a>
+                    </div>
+                    <div class="book-card">
+                        <img src="images/book7.jpg" alt="Normal People">
+                        <h3>Normal People</h3>
+                        <p class="author">Sally Rooney</p>
+                        <p class="price">$12.49</p>
+                        <a href="product.html" class="btn">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <!-- Same footer as index.html -->
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
