@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Ultimate Love Challenge 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* Romantic animated background */
+body{
+  margin:0;
+  height:100vh;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  font-family:"Poppins", Arial, sans-serif;
+  background:linear-gradient(135deg,#ff6a88,#ff99ac,#c471f5,#fa71cd);
+  background-size:400% 400%;
+  animation:bgGradient 18s ease-in-out infinite;
+}
+@keyframes bgGradient{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+/* After final yes – ultra romantic mode */
+body.romantic-explode{
+  animation:none;
+  background:radial-gradient(circle at top,#ff9aeb,#ff4b91,#3b003b);
+  background-size:200% 200%;
+  animation:romanticStorm 10s ease-in-out forwards;
+}
+@keyframes romanticStorm{
+  0%{background-position:0% 0%;}
+  50%{background-position:100% 100%;}
+  100%{background-position:50% 50%;}
+}
+
+/* Typewriter love heading */
+.love-heading{
+  position:absolute;
+  top:18px;
+  width:100%;
+  text-align:center;
+  z-index:3;
+}
+.typing-text{
+  display:inline-block;
+  font-family:"Courier New", monospace;
+  font-size:18px;
+  color:#ffeef7;
+  white-space:nowrap;
+  overflow:hidden;
+  border-right:2px solid #ffeef7;
+  animation:typing 5s steps(40,end) 0.5s 1 forwards,
+           caretBlink 0.8s steps(1,end) infinite;
+}
+@keyframes typing{
+  from{width:0;}
+  to{width:100%;}
+}
+@keyframes caretBlink{
+  0%,100%{border-color:transparent;}
+  50%{border-color:#ffeef7;}
+}
+
+/* Floating hearts background */
+#heart-container{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+}
+.heart-shape{
+  position:absolute;
+  width:18px;
+  height:18px;
+  background:#ff69b4;
+  transform:rotate(45deg);
+  opacity:0.75;
+  animation:heartFloatUp 7s linear infinite;
+}
+.heart-shape::before,
+.heart-shape::after{
+  content:"";
+  position:absolute;
+  width:18px;
+  height:18px;
+  background:#ff69b4;
+  border-radius:50%;
+}
+.heart-shape::before{
+  top:-9px;
+  left:0;
+}
+.heart-shape::after{
+  left:-9px;
+  top:0;
+}
+@keyframes heartFloatUp{
+  0%{transform:translateY(0) rotate(45deg) scale(0.8); opacity:0;}
+  20%{opacity:0.9;}
+  80%{opacity:0.9;}
+  100%{transform:translateY(-110vh) rotate(45deg) scale(1.2); opacity:0;}
+}
+
+/* 3D Cube */
+.scene{
+  width:320px;
+  height:320px;
+  perspective:900px;
+  perspective-origin:50% 40%;
+  position:relative;
+  margin-bottom:40px;
+  z-index:1;
+}
+.cube{
+  width:200px;
+  height:200px;
+  position:absolute;
+  top:60px;
+  left:60px;
+  transform-style:preserve-3d;
+  transform:rotateX(-25deg) rotateY(-35deg);
+  animation:spinCube 12s linear infinite;
+}
+@keyframes spinCube{
+  0%{
+    transform:rotateX(-25deg) rotateY(-35deg);
+  }
+  25%{
+    transform:rotateX(-25deg) rotateY(55deg);
+  }
+  50%{
+    transform:rotateX(55deg) rotateY(145deg);
+  }
+  75%{
+    transform:rotateX(-35deg) rotateY(235deg);
+  }
+  100%{
+    transform:rotateX(-25deg) rotateY(325deg);
+  }
+}
+
+/* hide cube in blast */
+.cube.hidden{
+  opacity:0;
+  transform:scale(0.2) rotateX(540deg) rotateY(540deg);
+  transition:transform 1.2s ease, opacity 1.2s ease;
+}
+
+/* faces as romantic photo frames */
+.cube-face{
+  position:absolute;
+  width:200px;
+  height:200px;
+  border-radius:22px;
+  border:3px solid rgba(255,255,255,0.9);
+  backface-visibility:hidden;
+  box-shadow:0 0 25px rgba(255,105,180,0.9);
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  overflow:hidden;
+}
+
+/* your 6 photos */
+.face-front{
+  transform:rotateY(0deg) translateZ(100px);
+  background-image:url("IMG_20250725_184644.jpg");
+}
+.face-back{
+  transform:rotateY(180deg) translateZ(100px);
+  background-image:url("IMG_20250809_185035_669.jpg");
+}
+.face-right{
+  transform:rotateY(90deg) translateZ(100px);
+  background-image:url("IMG_20250913_161541.jpg");
+}
+.face-left{
+  transform:rotateY(-90deg) translateZ(100px);
+  background-image:url("IMG_20251008_212008_245.jpg");
+}
+.face-top{
+  transform:rotateX(90deg) translateZ(100px);
+  background-image:url("IMG_20251008_212019_196.jpg");
+}
+.face-bottom{
+  transform:rotateX(-90deg) translateZ(100px);
+  background-image:url("IMG_20251221_131748.jpg");
+}
+
+/* soft highlight on faces */
+.cube-face::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 20% 20%,rgba(255,255,255,0.25),transparent 55%);
+  mix-blend-mode:screen;
+}
+
+/* exploding photo hearts */
+.photo-heart{
+  position:fixed;
+  width:80px;
+  height:80px;
+  border-radius:20px;
+  background-size:cover;
+  background-position:center;
+  box-shadow:0 0 20px rgba(255,105,180,0.9);
+  z-index:5;
+  opacity:0;
+  transform:scale(0.3);
+}
+
+/* Quiz Box – glassmorphism + animated border */
+.quiz-box{
+  position:absolute;
+  bottom:30px;
+  background:rgba(255,255,255,0.18);
+  padding:30px;
+  border-radius:28px;
+  backdrop-filter:blur(22px);
+  text-align:center;
+  width:90%;
+  max-width:440px;
+  box-shadow:0 18px 60px rgba(255,0,120,0.45);
+  border:1px solid rgba(255,255,255,0.6);
+  z-index:2;
+  overflow:hidden;
+}
+.quiz-box::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  padding:2px;
+  border-radius:inherit;
+  background:conic-gradient(from 0deg,
+    #ff4b91,
+    #ffccf9,
+    #c471f5,
+    #ff9a9e,
+    #ff4b91);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask-composite:exclude;
+  animation:borderSpin 8s linear infinite;
+}
+@keyframes borderSpin{
+  to{transform:rotate(360deg);}
+}
+
+.quiz-box p{
+  font-size:18px;
+  color:#ffeef7;
+  margin-bottom:15px;
+  text-shadow:0 0 16px rgba(255,0,120,0.9);
+}
+.question{
+  display:none;
+  opacity:0;
+  transform:translateY(30px);
+  transition:all .6s ease;
+}
+.question.active{
+  display:block;
+  opacity:1;
+  transform:translateY(0);
+  animation:romanticPopIn .8s ease, heartFloat 2.2s infinite ease-in-out;
+}
+
+/* romantic buttons */
+.quiz-box button{
+  margin:8px;
+  padding:11px 24px;
+  border:none;
+  border-radius:999px;
+  background:linear-gradient(135deg,#ff4b91,#ff6ec7);
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  transition:all .35s ease;
+  box-shadow:0 7px 22px rgba(255,0,90,0.6);
+  position:relative;
+  overflow:hidden;
+}
+.quiz-box button:hover{
+  transform:translateY(-2px) scale(1.06);
+  box-shadow:0 12px 30px rgba(255,0,120,0.85);
+}
+.quiz-box button:active{
+  transform:translateY(0) scale(1.02);
+}
+.quiz-box button::after{
+  content:"💖";
+  position:absolute;
+  right:-18px;
+  top:50%;
+  transform:translateY(-50%);
+  opacity:0;
+  transition:.45s;
+}
+.quiz-box button:hover::after{
+  right:10px;
+  opacity:1;
+}
+.quiz-box button::before{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:0;
+  height:0;
+  background:rgba(255,255,255,0.5);
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  opacity:0;
+}
+.quiz-box button:active::before{
+  width:180%;
+  height:180%;
+  opacity:0;
+  animation:btnRipple 0.5s ease-out;
+}
+@keyframes btnRipple{
+  0%{opacity:0.7; transform:translate(-50%,-50%) scale(0);}
+  100%{opacity:0; transform:translate(-50%,-50%) scale(1);}
+}
+
+/* feedback bubble */
+.feedback{
+  margin-top:12px;
+  font-size:17px;
+  font-weight:600;
+  color:#c2185b;
+  background:#fff0f7;
+  padding:10px 16px;
+  border-radius:20px;
+  display:inline-block;
+  box-shadow:0 8px 24px rgba(0,0,0,0.18);
+  opacity:0;
+  transform:scale(0.8);
+  transition:all 0.35s ease;
+}
+.feedback.show{
+  opacity:1;
+  transform:scale(1);
+}
+.feedback.correct{
+  border:2px solid #ff4081;
+}
+.feedback.wrong{
+  border:2px solid #ff6f91;
+}
+.question.shake{
+  animation:shake .4s;
+}
+
+/* small animations */
+@keyframes romanticPopIn{
+  0%{transform:scale(.8) translateY(25px); opacity:0;}
+  100%{transform:scale(1) translateY(0); opacity:1;}
+}
+@keyframes shake{
+  0%{transform:translateX(0);}
+  25%{transform:translateX(-5px);}
+  50%{transform:translateX(5px);}
+  75%{transform:translateX(-5px);}
+  100%{transform:translateX(0);}
+}
+@keyframes heartFloat{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-6px);}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<div class="love-heading">
+  <span class="typing-text">Oye Kannalu, this whole page is only for you…</span>
+</div>
+
+<div id="heart-container"></div>
+
+<div class="scene">
+  <div class="cube">
+    <div class="cube-face face-front"></div>
+    <div class="cube-face face-back"></div>
+    <div class="cube-face face-right"></div>
+    <div class="cube-face face-left"></div>
+    <div class="cube-face face-top"></div>
+    <div class="cube-face face-bottom"></div>
+  </div>
+</div>
+
+<div class="quiz-box">
+
+  <div class="question active" id="q1">
+    <p>1. What is the relation in my choice?</p>
+    <button type="button" onclick="next(1)">Wife</button>
+    <button type="button" onclick="wrong(1, this)">Lover</button>
+    <button type="button" onclick="wrong(1, this)">Partner</button>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="question" id="q2">
+    <p>2. What is the best memory I had?</p>
+    <button type="button" onclick="next(2)">Propose</button>
+    <button type="button" onclick="wrong(2, this)">First Kiss</button>
+    <button type="button" onclick="wrong(2, this)">Love Acceptance</button>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="question" id="q3">
+    <p>3. Which husband do you think I am?</p>
+    <button type="button" onclick="wrong(3, this)">Caring Husband</button>
+    <button type="button" onclick="wrong(3, this)">Romantic Husband</button>
+    <button type="button" onclick="next(3)">Dark Husband with Love</button>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="question" id="q4">
+    <p>4. What do you think he thinks most with you?</p>
+    <button type="button" onclick="wrong(4, this)">Love</button>
+    <button type="button" onclick="wrong(4, this)">Sex</button>
+    <button type="button" onclick="next(4)">Romance</button>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="question" id="q5">
+    <p>5. Do you think I am responsible husband?</p>
+    <button type="button" onclick="next(5)">Yes</button>
+    <button type="button" onclick="wrong(5, this)">No</button>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="question" id="q6">
+    <p>6. What will he do in public?</p>
+    <button type="button" onclick="next(6)">Spending Time Together</button>
+    <button type="button" onclick="wrong(6, this)">Kiss</button>
+    <button type="button" onclick="wrong(6, this)">Hug</button>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="question" id="q7">
+    <p>7. What do you think about you he loves the most?</p>
+    <button type="button" onclick="wrong(7, this)">Eyes</button>
+    <button type="button" onclick="wrong(7, this)">Hair</button>
+    <button type="button" onclick="next(7)">Nose</button>
+    <p class="feedback"></p>
+  </div>
+
+  <div class="question" id="q8">
+    <p>8. Oye Kannalu will you be my Valentine?</p>
+    <button type="button" onclick="finalYes()">Yes 💖</button>
+    <button type="button" onclick="finalNo()">No</button>
+    <p class="feedback"></p>
+  </div>
+
+</div>
+
+<script>
+function next(q){
+  const question = document.getElementById("q"+q);
+  const feedback = question.querySelector(".feedback");
+  feedback.className = "feedback correct show";
+  feedback.innerHTML = "💖 That’s the one… You truly understand my heart 💞";
+  setTimeout(()=>{
+    question.classList.remove("active");
+    const nextQuestion = document.getElementById("q"+(q+1));
+    if(nextQuestion){
+      nextQuestion.classList.add("active");
+    }
+  },900);
+}
+
+function wrong(q, el){
+  const question = document.getElementById("q"+q);
+  const feedback = question.querySelector(".feedback");
+  feedback.className = "feedback wrong show";
+  feedback.innerHTML = "😌 Hmm… that’s not my heart’s answer… Try again my love 💕";
+  question.classList.add("shake");
+  setTimeout(()=> question.classList.remove("shake"), 400);
+  if(el){
+    el.disabled = true;
+    el.style.opacity = "0.5";
+    el.style.cursor = "not-allowed";
+  }
+}
+
+function finalYes(){
+  const audio = document.getElementById("bgMusic");
+  if (audio) {
+    audio.play().catch(()=>{});
+  }
+
+  alert("Oye Kannalu 💍 You are officially mine forever 💖");
+
+  const cube = document.querySelector(".cube");
+  if(cube){
+    cube.classList.add("hidden");
+  }
+  document.body.classList.add("romantic-explode");
+
+  const photos = [
+    "IMG_20250725_184644.jpg",
+    "IMG_20250809_185035_669.jpg",
+    "IMG_20250913_161541.jpg",
+    "IMG_20251008_212008_245.jpg",
+    "IMG_20251008_212019_196.jpg",
+    "IMG_20251221_131748.jpg"
+  ];
+
+  for(let i=0; i<24; i++){
+    const ph = document.createElement("div");
+    ph.className = "photo-heart";
+    const img = photos[i % photos.length];
+    ph.style.backgroundImage = `url('${img}')`;
+    ph.style.left = "50vw";
+    ph.style.top = "50vh";
+    document.body.appendChild(ph);
+
+    const angle = Math.random() * Math.PI * 2;
+    const distance = 150 + Math.random()*250;
+    const dx = Math.cos(angle) * distance;
+    const dy = Math.sin(angle) * distance;
+    const duration = 1200 + Math.random()*800;
+
+    setTimeout(()=>{
+      ph.style.transition = `transform ${duration}ms ease-out, opacity ${duration}ms ease-out`;
+      ph.style.transform = `translate(${dx}px,${dy}px) scale(1) rotate(${Math.random()*720}deg)`;
+      ph.style.opacity = 1;
+    },10);
+
+    setTimeout(()=>{
+      ph.style.opacity = 0;
+      ph.style.transform += " scale(0.2)";
+    }, duration + 50);
+
+    setTimeout(()=>ph.remove(), duration + 800);
+  }
+
+  // go to memories page after animation
+  setTimeout(()=>{
+    window.location.href = "surprise.html";
+  }, 3500);
+}
+
+function finalNo(){
+  const question = document.getElementById("q8");
+  const feedback = question.querySelector(".feedback");
+  feedback.className = "feedback wrong show";
+  feedback.innerHTML = "😌 No is not accepted here… My heart only knows Yes 💕";
+  question.classList.add("shake");
+  setTimeout(()=> question.classList.remove("shake"), 400);
+}
+
+/* floating hearts creation */
+const heartContainer = document.getElementById("heart-container");
+if (heartContainer){
+  setInterval(()=>{
+    const h = document.createElement("div");
+    h.className = "heart-shape";
+    h.style.left = Math.random()*100 + "vw";
+    h.style.bottom = "-20px";
+    h.style.animationDuration = (4 + Math.random()*4) + "s";
+    heartContainer.appendChild(h);
+    setTimeout(()=>h.remove(), 9000);
+  }, 600);
+}
+</script>
+
+</body>
+</html>
